@@ -11,7 +11,9 @@
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage[verbose]{xsim}
+\usepackage[enableskew,vcentermath]{youngtab}
 
+\usetikzlibrary{patterns}
 \pgfplotsset{compat=1.18}
 
 \tikzset{
@@ -36,10 +38,6 @@
 本文为组合数学各章节的例题，由于部分答案为个人编撰，难免会出现错误，请保证使用 \href{https://github.com/mobyw/MasterCourseNotes/blob/master/CombinatorialMathematics/CombinatorialMathematicsExamples.pdf}{GitHub仓库} 所发布的最新版本. 如遇问题可在 GitHub 上发布 Issue.
 
 
-\section{排列、组合及二项式定理}
-
-
-
 \section{容斥原理}
 
 \begin{exercise}
@@ -62,7 +60,10 @@
     首先进行变量代换：
     \begin{equation}
         \notag
-        x_1^{\prime} = x_1-3, x_2^{\prime} = x_2-2, x_3^{\prime} = x_3-1, x_4^{\prime} = x_4-1
+        x_1^{\prime} = x_1-3,
+        x_2^{\prime} = x_2-2,
+        x_3^{\prime} = x_3-1,
+        x_4^{\prime} = x_4-1
     \end{equation}
 
     则方程变为：
@@ -71,7 +72,10 @@
         \left\{
         \begin{array}{l}
             x_1^{\prime} + x_2^{\prime} + x_3^{\prime} + x_4^{\prime} = 6 \\
-            0 \leq x_1^{\prime} \leq 3, 0 \leq x_2^{\prime} \leq 4, 0 \leq x_3^{\prime} \leq 1, x_4^{\prime} \geq 0
+            0 \leq x_1^{\prime} \leq 3,
+            0 \leq x_2^{\prime} \leq 4,
+            0 \leq x_3^{\prime} \leq 1,
+            x_4^{\prime} \geq 0
         \end{array}
         \right.
     \end{equation}
@@ -79,23 +83,39 @@
     等价为求集合 $S_0$ 的 $6\text{-}$组合数，其中 $S_0$ 为：
     \begin{equation}
         \notag
-        S_0 = \left\{ 3 \cdot x_1^{\prime}, 4 \cdot x_2^{\prime}, 1 \cdot x_3^{\prime}, \infty \cdot x_4^{\prime} \right\}
+        S_0 = \left\{
+        3 \cdot x_1^{\prime},
+        4 \cdot x_2^{\prime},
+        1 \cdot x_3^{\prime},
+        \infty \cdot x_4^{\prime}
+        \right\}
     \end{equation}
 
     用 $A_1$ 表示 $S$ 中至少含有 $4$ 个 $x_1^{\prime}$；$A_2$ 表示 $S$ 中至少含有 $5$ 个 $x_2^{\prime}$；$A_3$ 表示 $S$ 中至少含有 $2$ 个 $x_3^{\prime}$. 其中 $S$ 为：
     \begin{equation}
         \notag
-        S = \left\{ \infty \cdot x_1^{\prime}, \infty \cdot x_2^{\prime}, \infty \cdot x_3^{\prime}, \infty \cdot x_4^{\prime} \right\}
+        S = \left\{
+        \infty \cdot x_1^{\prime},
+        \infty \cdot x_2^{\prime},
+        \infty \cdot x_3^{\prime},
+        \infty \cdot x_4^{\prime}
+        \right\}
     \end{equation}
 
     根据容斥原理，所求的 $6\text{-}$组合数为：
     \begin{equation}
         \notag
         \begin{aligned}
-              & \left| \overline{A}_1 \cap \overline{A}_2 \cap \overline{A}_3 \right|                                                          \\
-            = & |S| - \sum_{i=1}^{3}{\left| A_i \right|} + \sum_{i \neq j}{\left| A_i \cap A_j \right|} - \left| A_1 \cap A_2 \cap A_3 \right| \\
-            = & F(4,6) - \left(F(4,2)+F(4,1)+F(4,4)\right) + F(4,0) - 0                                                                        \\
-            = & 84-(10+4+35)+1                                                                                                                 \\
+              & \left| \overline{A}_1 \cap
+            \overline{A}_2 \cap
+            \overline{A}_3 \right|                         \\
+            = & |S| -
+            \sum_{i=1}^{3}{\left| A_i \right|} +
+            \sum_{i \neq j}{\left| A_i \cap A_j \right|} -
+            \left| A_1 \cap A_2 \cap A_3 \right|           \\
+            = & F(4,6) -
+            \left(F(4,2)+F(4,1)+F(4,4)\right) + F(4,0) - 0 \\
+            = & 84-(10+4+35)+1                             \\
             = & 36
         \end{aligned}
     \end{equation}
@@ -117,8 +137,78 @@
         \notag
         \left\{\begin{array}{l}
             x_{1}+x_{2}+x_{3}+x_{4}=27 \\
-            4 \leq x_1 \leq 10, 2 \leq x_2 \leq 18, 7 \leq x_3 \leq 18, 2 \leq x_4 \leq 22
+            4 \leq x_1 \leq 10,
+            2 \leq x_2 \leq 18,
+            7 \leq x_3 \leq 18,
+            2 \leq x_4 \leq 22
         \end{array}\right.
+    \end{equation}
+
+\end{solution}
+
+\begin{exercise}
+
+    有数学、物理、化学和英语 $4$ 门课程. 现从星期一到星期四安排这四门课程，每门课程安排一天，每天安排一门课程. 要求数学不能安排在星期一和星期二，物理不能安排在星期三，化学不能安排在星期四，英语不能安排在星期二. 问有多少种不同的安排方案？
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    禁区棋盘：
+
+    \begin{center}
+        \notag
+        \begin{tikzpicture}[scale=.5,line width=0.5pt]
+            \node at(-1,3.5) {$M$};
+            \node at(-1,2.5) {$P$};
+            \node at(-1,1.5) {$C$};
+            \node at(-1,0.5) {$E$};
+
+            \node at(0.5,4.5) {$1$};
+            \node at(1.5,4.5) {$2$};
+            \node at(2.5,4.5) {$3$};
+            \node at(3.5,4.5) {$4$};
+
+            \filldraw[pattern=north west lines] (0,3) rectangle (1,4);
+            \filldraw[pattern=north west lines] (1,3) rectangle (2,4);
+            \draw (2,3) rectangle (3,4);
+            \draw (3,3) rectangle (4,4);
+
+            \draw (0,2) rectangle (1,3);
+            \draw (1,2) rectangle (2,3);
+            \filldraw[pattern=north west lines] (2,2) rectangle (3,3);
+            \draw (3,2) rectangle (4,3);
+
+            \draw (0,1) rectangle (1,2);
+            \draw (1,1) rectangle (2,2);
+            \draw (2,1) rectangle (3,2);
+            \filldraw[pattern=north west lines] (3,1) rectangle (4,2);
+
+            \draw (0,0) rectangle (1,1);
+            \filldraw[pattern=north west lines] (1,0) rectangle (2,1);
+            \draw (2,0) rectangle (3,1);
+            \draw (3,0) rectangle (4,1);
+        \end{tikzpicture}
+    \end{center}
+
+    禁区棋盘计算：
+    \begin{equation}
+        \notag
+        \begin{aligned}
+            R \left(\young(~~::,::~:,:::~,:~::)\right)
+             & = x R \left(\young(~:,:~)\right)+
+            R \left(\young(~:::,::~:,:::~,:~::)\right)              \\
+             & = x R \left(\young(~:,:~)\right)+
+            R^2 \left(\young(~)\right) R \left(\young(~:,:~)\right) \\
+             & = x(1+2x+x^2) + (1+x)^2(1+2x+x^2)                    \\
+             & =1+5x+8x^2+5x^3+x^4
+        \end{aligned}
+    \end{equation}
+
+    安排方案数：
+    \begin{equation}
+        \notag
+        N = 4! - 5 \cdot 3! + 8 \cdot 2! - 5 + 1 = 6
     \end{equation}
 
 \end{solution}
@@ -201,7 +291,10 @@
     首先进行变量代换：
     \begin{equation}
         \notag
-        x_1^{\prime} = x_1-1, x_2^{\prime} = x_2-3, x_3^{\prime} = x_3-1, x_4^{\prime} = x_4-1
+        x_1^{\prime} = x_1-1,
+        x_2^{\prime} = x_2-3,
+        x_3^{\prime} = x_3-1,
+        x_4^{\prime} = x_4-1
     \end{equation}
 
     则方程变为：
@@ -210,7 +303,10 @@
         \left\{
         \begin{array}{l}
             x_1^{\prime} + 3 x_2^{\prime} + x_3^{\prime} + x_4^{\prime} = 148 \\
-            x_1^{\prime} \geq 0, 0 \leq x_2^{\prime} \leq 7, 0 \leq x_3^{\prime} \leq 2, x_4^{\prime} \geq 0
+            x_1^{\prime} \geq 0,
+            0 \leq x_2^{\prime} \leq 7,
+            0 \leq x_3^{\prime} \leq 2,
+            x_4^{\prime} \geq 0
         \end{array}
         \right.
     \end{equation}
@@ -219,10 +315,17 @@
     \begin{equation}
         \notag
         \begin{aligned}
-            f(x) & = (1+x+x^2+\cdots)^2 (1+x^3+x^6+\cdots+x^{21}) (1+x+x^2)                                                     \\
-                 & = \dfrac{1}{(1-x)^2} \cdot \dfrac{1-x^{24}}{1-x^3} \cdot\dfrac{1-x^3}{1-x}                                   \\
-                 & = \dfrac{1-x^{24}}{(1-x)^3}                                                                                  \\
-                 & = \left(1-x^{24}\right) \cdot \sum_{k=0}^{\infty} {\left( \begin{array}{c} 2+k \\ 2 \end{array} \right) x^k}
+            f(x) & = (1+x+x^2+\cdots)^2
+            (1+x^3+x^6+\cdots+x^{21})
+            (1+x+x^2)                            \\
+                 & = \dfrac{1}{(1-x)^2} \cdot
+            \dfrac{1-x^{24}}{1-x^3} \cdot
+            \dfrac{1-x^3}{1-x}                   \\
+                 & = \dfrac{1-x^{24}}{(1-x)^3}   \\
+                 & = \left(1-x^{24}\right) \cdot
+            \sum_{k=0}^{\infty} {\left(
+                \begin{array}{c} 2+k \\ 2 \end{array}
+                \right) x^k}
         \end{aligned}
     \end{equation}
 
@@ -230,8 +333,14 @@
     \begin{equation}
         \notag
         \begin{aligned}
-            a_{148} & = \left( \begin{array}{c} 2+148 \\ 2 \end{array} \right) - \left( \begin{array}{c} 2+124 \\ 2 \end{array} \right) \\
-                    & = 3300
+            a_{148}
+             & = \left(
+            \begin{array}{c} 2+148 \\ 2 \end{array}
+            \right) -
+            \left(
+            \begin{array}{c} 2+124 \\ 2 \end{array}
+            \right)     \\
+             & = 3300
         \end{aligned}
     \end{equation}
 
@@ -256,25 +365,61 @@
 
 \begin{exercise}
 
-    正偶数 $k_1, k_2, ..., k_n$ 满足 $k_i \neq k_j, i \neq j$. 写出求将正整数 $r$ 分解为 $k_1, k_2, ..., k_n$ 的和的方法数的算法，要求 $k_i$ 最多可被选中三次.
-
-\end{exercise}
-
-\begin{solution}[print=true]
-
-    Solution.
-
-\end{solution}
-
-\begin{exercise}
-
     求不包含 $3, 5, 7$，出现偶数次 $1, 2$，至少出现两次 $4, 8$ 的 $r$ 位十进制数的个数.
 
 \end{exercise}
 
 \begin{solution}[print=true]
 
-    Solution.
+    设 $a_r$ 是由 $0, 1, 2, 4, 6, 8, 9$ 组成的有偶数个 $1, 2$，至少两个 $4, 8$ ，长度为 $r$ 的序列.
+
+    则 $a_r$ 的指数母函数为：
+    \begin{equation}
+        \notag
+        \begin{aligned}
+            f_4(x)
+             & = \left(1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots\right)^2
+            \left(\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots\right)^2
+            \left(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots\right)^3                \\
+             & = \left(\frac{\mathrm{e}^{x}+\mathrm{e}^{-x}}{2}\right)^2 \cdot
+            \left(\mathrm{e}^{x}-1\right)^2 \cdot
+            \mathrm{e}^{3x}                                                    \\
+             & = \frac{1}{4}\left(
+            \mathrm{e}^{7x}-2\mathrm{e}^{6x}+3\mathrm{e}^{5x}-4\mathrm{e}^{4x}+
+            3\mathrm{e}^{3x}-\mathrm{e}^{2x}+\mathrm{e}^{x}
+            \right)                                                            \\
+             & =\sum_{r=0}^{\infty}{\frac{1}{4}\left(
+            7^r - 2 \cdot 6^r + 3 \cdot 5^r - 4 \cdot 4^r+
+            3 \cdot 3^r- 2 \cdot 2^r + 1
+            \right)\frac{x^r}{r!}}
+        \end{aligned}
+    \end{equation}
+
+    可知：
+    \begin{equation}
+        \notag
+        a_r = \frac{1}{4}\left(
+        7^r - 2 \cdot 6^r + 3 \cdot 5^r - 4 \cdot 4^r+
+        3 \cdot 3^r- 2 \cdot 2^r + 1
+        \right)
+    \end{equation}
+
+    首位取 $0$ 的 $r$ 位序列个数为 $a_{r-1}$，所以所求的 $r$ 位十进制数个数为：
+    \begin{equation}
+        \notag
+        a_r - a_{r-1} = \left\{
+        \begin{aligned}
+             & \frac{1}{4} \cdot \left(
+            6 \cdot 7^{r-1} - 10 \cdot 6^{r-1} +
+            12 \cdot 5^{r-1} - 12 \cdot 4^{r-1} +
+            6 \cdot 3^{r-1} - 2 \cdot 2^{r-1}
+            \right)
+             & , r>0                    \\
+             & 0
+             & , r=0
+        \end{aligned}
+        \right.
+    \end{equation}
 
 \end{solution}
 
@@ -324,7 +469,9 @@
     \begin{equation}
         \notag
         \begin{array}{c}
-            An \cdot 3^{n} - 2A(n-1) \cdot 3^{n-1} -3A(n-2) \cdot 3^{n-2} = 2 \cdot 3^{n} \\
+            An \cdot 3^{n} - 2A(n-1) \cdot
+            3^{n-1} -3A(n-2) \cdot 3^{n-2} =
+            2 \cdot 3^{n} \\
             A = \dfrac{3}{2}
         \end{array}
     \end{equation}
@@ -332,7 +479,9 @@
     故通解为：
     \begin{equation}
         \notag
-        a_{n} = a_{n}^{\ast} + \overline{a}_{n} = c_1 \cdot (-1)^n + c_2 \cdot 3^n + \dfrac{3}{2} n \cdot 3^n
+        a_{n} =
+        a_{n}^{\ast} + \overline{a}_{n}
+        = c_1 \cdot (-1)^n + c_2 \cdot 3^n + \dfrac{3}{2} n \cdot 3^n
     \end{equation}
 
     由初始条件得：
@@ -355,7 +504,8 @@
     故原递归关系的解为：
     \begin{equation}
         \notag
-        a_{n} = \dfrac{11}{8} \cdot (-1)^n + \left( \dfrac{3}{2} n - \dfrac{3}{8} \right) \cdot 3^n
+        a_{n} = \dfrac{11}{8} \cdot (-1)^n +
+        \left( \dfrac{3}{2} n - \dfrac{3}{8} \right) \cdot 3^n
     \end{equation}
 
 \end{solution}
@@ -390,7 +540,10 @@
     由乘法原理得：
     \begin{equation}
         \notag
-        S_{2}(n, n-1) = \left(\begin{array}{c}n\\2\end{array}\right) \cdot 1 = \dfrac{n(n-1)}{2}
+        S_{2}(n, n-1) = \left(
+        \begin{array}{c}n\\2\end{array}
+        \right) \cdot 1 =
+        \dfrac{n(n-1)}{2}
     \end{equation}
 
 \end{solution}
