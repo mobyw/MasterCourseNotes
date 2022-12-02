@@ -195,12 +195,12 @@
     \begin{equation}
         \notag
         \begin{aligned}
-            R \left(\young(~~::,::~:,:::~,:~::)\right)
-             & = x R \left(\young(~:,:~)\right)+
-            R \left(\young(~:::,::~:,:::~,:~::)\right)              \\
-             & = x R \left(\young(~:,:~)\right)+
-            R^2 \left(\young(~)\right) R \left(\young(~:,:~)\right) \\
-             & = x(1+2x+x^2) + (1+x)^2(1+2x+x^2)                    \\
+            R \left(\young(~*,::~,:::~,:~)\right)
+             & = x R \left(\young(~,:~)\right)+
+            R \left(\young(~,::~,:::~,:~)\right)                   \\
+             & = x R \left(\young(~,:~)\right)+
+            R^2 \left(\young(~)\right) R \left(\young(~,:~)\right) \\
+             & = x(1+2x+x^2) + (1+x)^2(1+2x+x^2)                   \\
              & =1+5x+8x^2+5x^3+x^4
         \end{aligned}
     \end{equation}
@@ -215,6 +215,32 @@
 
 
 \section{鸽笼原理与 Ramsey 定理}
+
+\begin{exercise}
+
+    设 $n$ 是大于 $1$ 的奇数. 证明在 $2^1-1, 2^2-1, \cdots, 2^n-1$ 中总有一个能被 $n$ 整除.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    假设集合 $S = \left\{ 2^1-1, 2^2-1, \cdots, 2^n-1 \right\}$ 中不存在能被 $n$ 整除的数，根据鸽笼原理，这 $n$ 个数中至少有两个数除以 $n$ 的余数是相同的.
+
+    将两个除以 $n$ 余数相同的数表示为 $2^x-1=a \cdot n+c, 2^y-1=b \cdot n+c$ 且满足 $1 \leq x < y \leq n, b > a$，则有：
+    \begin{equation}
+        \notag
+        \begin{aligned}
+            (2^y-1) - (2^x-1) & = (b \cdot n+c) - (a \cdot n+c) \\
+            2^y - 2^x         & = (b-a) \cdot n                 \\
+            2^x(2^{y-x}-1)    & = (b-a) \cdot n
+        \end{aligned}
+    \end{equation}
+
+    上式中 $2^x(2^{y-x}-1)$ 可被大于 $1$ 的奇数 $n$ 整除，由于 $2^x$ 是偶数，故 $2^{y-x}-1$ 可被 $n$ 整除，由于 $ 0 < (y-x) < y$，所以 $2^{y-x}-1$ 也在集合 $S$ 中，与假设矛盾.
+
+    综上，集合 $2^1-1, 2^2-1, \cdots, 2^n-1$ 总有一个能被大于 $1$ 的奇数 $n$ 整除.
+
+\end{solution}
 
 \begin{exercise}
 
@@ -365,6 +391,38 @@
 
 \begin{exercise}
 
+    $n$ 位序列每一位都由 $0, 1, 2$ 三个数字组成. 共有多少这样的 $n$ 位序列包含奇数个 $0$？
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    设 $a_n$ 是由 $0, 1, 2$ 组成的有奇数个 $0$ 的序列.
+
+    则 $a_n$ 的指数母函数为：
+    \begin{equation}
+        \notag
+        \begin{aligned}
+            f_{\mathrm{e}}(x)
+             & = \left(\frac{x}{1!}+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots\right)
+            \left(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots\right)^2                    \\
+             & = \left(\frac{\mathrm{e}^{x}-\mathrm{e}^{-x}}{2}\right) \cdot
+            \mathrm{e}^{2x}                                                        \\
+             & = \frac{1}{2}\left(\mathrm{e}^{3x}-\mathrm{e}^{x}+3\right)          \\
+             & =\sum_{n=0}^{\infty}{\frac{1}{2}\left(3^n - 1\right)\frac{x^n}{n!}}
+        \end{aligned}
+    \end{equation}
+
+    可知：
+    \begin{equation}
+        \notag
+        a_n = \frac{1}{2}\left(3^n - 1\right)
+    \end{equation}
+
+\end{solution}
+
+\begin{exercise}
+
     求不包含 $3, 5, 7$，出现偶数次 $1, 2$，至少出现两次 $4, 8$ 的 $r$ 位十进制数的个数.
 
 \end{exercise}
@@ -377,7 +435,7 @@
     \begin{equation}
         \notag
         \begin{aligned}
-            f_4(x)
+            f_{\mathrm{e}}(x)
              & = \left(1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots\right)^2
             \left(\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots\right)^2
             \left(1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots\right)^3                \\
@@ -531,7 +589,7 @@
 
 \begin{solution}[print=true]
 
-    $S2(n,n-1)$ 表示 $n$ 个不同的球放入 $n-1$ 个相同的盒子且盒子不空的方式数.
+    $S_2(n,n-1)$ 表示 $n$ 个不同的球放入 $n-1$ 个相同的盒子且盒子不空的方式数.
 
     等价于首先从 $n$ 个球中取出 $2$ 个球出来放入某个盒子中，有
     $\left(\begin{array}{c}n\\2\end{array}\right)$
@@ -545,6 +603,78 @@
         \right) \cdot 1 =
         \dfrac{n(n-1)}{2}
     \end{equation}
+
+\end{solution}
+
+\begin{exercise}
+
+    设 $m, n$ 均为正整数且 $m\leq n$，证明 $m^n = \sum\limits_{k=1}^{m} {\dbinom{m}{k} \cdot S_2(n,k) \cdot k!}$.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    $S_2(n,m)$ 表示 $n$ 个不同的球放入 $m$ 个相同的盒子，且盒子不空的方式数.
+
+    考虑盒子的全排列问题，根据乘法规则，$S_2(n,m) \cdot m!$ 表示 $n$ 个不同的球放入 $m$ 个不同的盒子，且盒子不空的方式数.
+
+    考虑盒子可为空，依次选择 $1$ 个到 $m$ 个箱子，求出对应的非空的放置方式数，再求和即可. 设每次从 $m$ 个箱子中选择 $k$ 个箱子作为非空箱，且 $1 \leq k \leq m$，则共有 $\dbinom{m}{k}$ 种选法. $\sum\limits_{k=1}^{m} {\dbinom{m}{k} \cdot S_2(n,k) \cdot k!}$ 表示 $n$ 个不同的球放入 $m$ 个不同的盒子，且盒子可为空的方式数.
+
+    $n$ 个不同的球放入 $m$ 个不同的盒子，且盒子可为空的方式数也可以这样计算：每个球可以放入 $m$ 个盒子的任意一个之中，共有 $m$ 种方式，根据乘法规则，$n$ 个球共有 $m^n$ 种放法.
+
+    综上，$m^n = \sum\limits_{k=1}^{m} {\dbinom{m}{k} \cdot S_2(n,k) \cdot k!}$.
+
+\end{solution}
+
+
+\section{放球问题总结}
+
+\begin{exercise}
+
+    求以下条件组合下将 $n$ 个球放入 $m$ 个盒子中的放法.
+    \begin{itemize}
+        \item[$\diamond$] 球：无区别或有区别
+        \item[$\diamond$] 盒子：无区别或有区别
+        \item[$\diamond$] 空盒子：允许或不允许
+    \end{itemize}
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    \textbf{0b000. 球无区别，盒子无区别，允许空盒子}
+
+    正整数 $n$ 拆分成最多不超过 $m$ 个正整数的和，等于正整数 $n$ 拆分成最大数不超过 $m$ 的方式数，共有 $P_m(n)$ 种放法.
+
+    \textbf{0b001. 球无区别，盒子无区别，不允许空盒子}
+
+    在允许空盒子基础上先在每个盒子中放一个球，等价于 $n-m$ 个球放入 $m$ 个盒子且允许空盒子放法，共有 $P_m(n-m)$ 种放法.
+
+    \textbf{0b010. 球无区别，盒子有区别，允许空盒子}
+
+    对应重集 $B=\{\infty \cdot b_1,\infty \cdot b_2,\cdots,\infty \cdot b_m\}$ 的 $n\text{-}$组合问题，共有 $F(m,n)=\dbinom{n+m-1}{n}$ 种放法.
+
+    把不允许空盒子看作是先在每个盒子中放了一个球，等价于 $n+m$ 个球放入 $m$ 个盒子且不允许空盒子放法，共有 $\dbinom{n+m-1}{m-1}$ 种放法.
+
+    \textbf{0b011. 球无区别，盒子有区别，不允许空盒子}
+
+    使用隔板法，在 $n$ 个球序列的 $n-1$ 个缝隙中插入 $m-1$ 个隔板以将序列分为 $m$ 份，共有 $\dbinom{n-1}{m-1}$ 种放法.
+
+    \textbf{0b100. 球有区别，盒子无区别，允许空盒子}
+
+    求 $n$ 个元素的集合划分成不超过 $m$ 个不相交的非空子集的方式数目，对应于第二类 Stirling 数的求和，共有 $\sum\limits_{i=1}^{m} S_2(n,i)$ 种放法.
+
+    \textbf{0b101. 球有区别，盒子无区别，不允许空盒子}
+
+    求 $n$ 个元素的集合划分成 $m$ 个不相交的非空子集的方式数目，对应于第二类 Stirling 数，共有 $S_2(n,m)$ 种放法.
+
+    \textbf{0b110. 球有区别，盒子有区别，允许空盒子}
+
+    每个球在放入盒子时都有 $m$ 种选择，$n$ 个球共有 $m^n$ 种放法.
+
+    \textbf{0b111. 球有区别，盒子有区别，不允许空盒子}
+
+    在盒子无区别的基础上再考虑盒子的全排列问题，共有 $m! S_2(n,m)$ 种放法.
 
 \end{solution}
 
