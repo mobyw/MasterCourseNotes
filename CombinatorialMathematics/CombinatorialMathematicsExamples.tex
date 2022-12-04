@@ -6,25 +6,31 @@
 \date{\zhtoday}
 
 \usepackage{tikz}
+\usepackage{hyperref}
 \usepackage{pgfplots}
 \usepackage{bookmark}
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage[verbose]{xsim}
 \usepackage[enableskew,vcentermath]{youngtab}
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
 
 \usetikzlibrary{patterns}
 \pgfplotsset{compat=1.18}
 
 \tikzset{
     box/.style ={
-        rectangle,              % 矩形节点
-        rounded corners = 5pt,  % 圆角
-        minimum width   = 50pt, % 最小宽度
-        minimum height  = 20pt, % 最小高度
-        inner sep = 5pt,        % 文字和边框的距离
-        draw=blue               % 边框颜色
-    }
+            rectangle,              % 矩形节点
+            rounded corners = 5pt,  % 圆角
+            minimum width   = 50pt, % 最小宽度
+            minimum height  = 20pt, % 最小高度
+            inner sep = 5pt,        % 文字和边框的距离
+            draw=blue               % 边框颜色
+        }
 }
 
 \begin{document}
@@ -34,8 +40,9 @@
 % \setlength{\lineskip}{1.5em}
 % \setlength{\parskip}{0pt}
 
+\doclicenseThis
 
-本文为组合数学各章节的例题，由于部分答案为个人编撰，难免会出现错误，请保证使用 \href{https://github.com/mobyw/MasterCourseNotes/blob/master/CombinatorialMathematics/CombinatorialMathematicsExamples.pdf}{GitHub仓库} 所发布的最新版本. 如遇问题可在 GitHub 上发布 Issue.
+本文档为组合数学各章节的例题，由于部分答案为个人编撰，难免会出现错误，请保证使用 \href{https://github.com/mobyw/MasterCourseNotes/blob/master/CombinatorialMathematics/CombinatorialMathematicsExamples.pdf}{GitHub仓库} 所发布的最新版本. 如遇问题可在 GitHub 上发布 Issue.
 
 
 \section{容斥原理}
