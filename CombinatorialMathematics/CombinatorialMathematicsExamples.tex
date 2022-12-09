@@ -356,9 +356,9 @@
             \dfrac{1-x^3}{1-x}                   \\
                  & = \dfrac{1-x^{24}}{(1-x)^3}   \\
                  & = \left(1-x^{24}\right) \cdot
-            \sum_{k=0}^{\infty} {\left(
-                \begin{array}{c} 2+k \\ 2 \end{array}
-                \right) x^k}
+            \sum_{k=0}^{\infty} {
+            \dbinom{2+k}{2}
+            x^k}
         \end{aligned}
     \end{equation}
 
@@ -367,12 +367,8 @@
         \notag
         \begin{aligned}
             a_{148}
-             & = \left(
-            \begin{array}{c} 2+148 \\ 2 \end{array}
-            \right) -
-            \left(
-            \begin{array}{c} 2+124 \\ 2 \end{array}
-            \right)     \\
+             & = \dbinom{2+148}{2} -
+            \dbinom{2+124}{2}        \\
              & = 3300
         \end{aligned}
     \end{equation}
@@ -599,15 +595,13 @@
     $S_2(n,n-1)$ 表示 $n$ 个不同的球放入 $n-1$ 个相同的盒子且盒子不空的方式数.
 
     等价于首先从 $n$ 个球中取出 $2$ 个球出来放入某个盒子中，有
-    $\left(\begin{array}{c}n\\2\end{array}\right)$
+    $\dbinom{n}{2}$
     种取法，然后把剩下的 $n-2$ 个球放入 $n-2$ 个盒子中，每个盒子中放一个球，有 $1$ 种放法.
 
     由乘法原理得：
     \begin{equation}
         \notag
-        S_{2}(n, n-1) = \left(
-        \begin{array}{c}n\\2\end{array}
-        \right) \cdot 1 =
+        S_{2}(n, n-1) = \dbinom{n}{2} \cdot 1 =
         \dfrac{n(n-1)}{2}
     \end{equation}
 
@@ -630,6 +624,32 @@
     $n$ 个不同的球放入 $m$ 个不同的盒子，且盒子可为空的方式数也可以这样计算：每个球可以放入 $m$ 个盒子的任意一个之中，共有 $m$ 种方式，根据乘法规则，$n$ 个球共有 $m^n$ 种放法.
 
     综上，$m^n = \sum\limits_{k=1}^{m} {\dbinom{m}{k} \cdot S_2(n,k) \cdot k!}$.
+
+\end{solution}
+
+
+\begin{exercise}
+
+    设 $a_{n}$ 为出现奇数个 $2$ 的 $n$ 位十进制数的个数，建立 $a_{n}$ 的递归关系（不用求解）.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    求 $a_{n}$ 递推公式可根据添加的末位数字分为以下两种情况：
+
+    当最后一位上添加非 $2$ 的数字时，前 $n-1$ 位需要满足出现奇数个 $2$，所以共有 $9 a_{n-1}$ 个满足要求的数字。
+
+    当最后一位上添加 $2$ 时，前 $n-1$ 位需要满足出现偶数个 $2$，可通过 $n-1$ 位所有的十进制数减去存在偶数个 $2$ 的十进制数得到，所以共有 $9 \cdot 10^{n-2} - a_{n-1}$ 个满足要求的数字。
+
+    根据加法规则，$a_{n}=9  a_{n-1} + \left(9 \cdot 10^{n-2} - a_{n-1}\right) = 8  a_{n-1} + 9 \cdot 10^{n-2}$，故 $a_{n}$ 的递推关系式为：
+    \begin{equation}
+        \notag
+        \left\{\begin{array}{l}
+            a_{n} = 8 a_{n-1} + 9 \cdot 10^{n-2} \\
+            a_{1} = 1
+        \end{array}\right.
+    \end{equation}
 
 \end{solution}
 
