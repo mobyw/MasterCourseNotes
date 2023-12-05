@@ -1,0 +1,239 @@
+\documentclass[cn, hazy, blue, normal, 12pt]{elegantnote}
+
+\title{形式化方法例题讲解}
+\author{Mobyw}
+\version{1.0}
+\date{\zhtoday}
+
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{bookmark}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[verbose]{xsim}
+\usepackage[enableskew,vcentermath]{youngtab}
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\usetikzlibrary{patterns}
+\pgfplotsset{compat=1.18}
+
+\tikzset{
+    box/.style ={
+            rectangle,              % 矩形节点
+            rounded corners = 5pt,  % 圆角
+            minimum width   = 50pt, % 最小宽度
+            minimum height  = 20pt, % 最小高度
+            inner sep = 5pt,        % 文字和边框的距离
+            draw=blue               % 边框颜色
+        }
+}
+
+\begin{document}
+
+\maketitle
+
+% \setlength{\lineskip}{1.5em}
+% \setlength{\parskip}{0pt}
+
+\doclicenseThis
+
+本文档为形式化方法各章节的例题，由于部分答案为个人编撰，难免会出现错误，请保证使用 \href{https://github.com/mobyw/MasterCourseNotes/blob/master/FormalMethods/FormalMethodsExamples.tex}{GitHub仓库} 所发布的最新版本. 如遇问题可在 GitHub 上发布 Issue.
+
+\section{命题逻辑}
+
+本章考点：
+
+\begin{enumerate}
+    \item 将自然语言描述转换为命题逻辑公式.
+    \item 命题逻辑矢列的有效性判断.
+    \item 语法分析树的构造与子式的提取.
+    \item 使用指派法判断矢列的有效性.
+    \item 使用真值表实现到 CNF 的转换.
+\end{enumerate}
+
+\begin{exercise}
+
+    Prove the validity of:
+
+    (1) $ (p \wedge q) \wedge r, s \wedge t \vdash q \wedge s $.
+
+    (2) $ p \vdash(p \rightarrow q) \rightarrow q $.
+
+    (3) $ \neg p \rightarrow \neg q \vdash q \rightarrow p $.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    (1) $$
+        \begin{array}{lll}
+            1 & (p \wedge q) \wedge r & \text { premise }       \\
+            2 & s \wedge t            & \text { premise }       \\
+            3 & p \wedge q            & \wedge \mathrm{e}_{1} 1 \\
+            4 & q                     & \wedge \mathrm{e}_{2} 3 \\
+            5 & s                     & \wedge \mathrm{e}_{1} 2 \\
+            6 & q \wedge s            & \wedge \mathrm{i} 4,5
+        \end{array}
+    $$
+
+    (2) $$
+        \begin{array}{lll}
+            1 & p                               & \text { premise }          \\
+            \hline
+            2 & p \rightarrow q                 & \text { assumption }       \\
+            3 & q                               & \rightarrow \mathrm{e} 2,1 \\
+            \hline
+            4 & (p \rightarrow q) \rightarrow q & \rightarrow \mathrm{i} 2-3
+        \end{array}
+    $$
+
+    (3) $$
+        \begin{array}{lll}
+            1 & \neg p \rightarrow \neg q & \text { premise }          \\
+            \hline
+            2 & q                         & \text { assumption }       \\
+            3 & \neg \neg q               & \neg \neg \mathrm{i} 2     \\
+            4 & \neg \neg p               & \text { MT } 1,3           \\
+            5 & p                         & \neg \neg \mathrm{e} 4     \\
+            \hline
+            6 & q \rightarrow p           & \rightarrow \mathrm{i} 2-5
+        \end{array}
+    $$
+
+\end{solution}
+
+
+\section{谓词逻辑}
+
+本章考点：
+
+\begin{enumerate}
+    \item 将自然语言描述转换为谓词逻辑公式.
+    \item 谓词逻辑矢列的有效性判断.
+    \item 语法分析树的构造.
+    \item 使用指派法判断矢列的有效性.
+\end{enumerate}
+
+
+
+\begin{exercise}
+
+    利用谓词规范：
+    \begin{enumerate}
+        \item $B(x,y)$: $x$ 击败 $y$
+        \item $F(x)$: $x$ 是一个足球队
+        \item $Q(x,y)$: $x$ 是 $y$ 的四分卫
+        \item $L(x,y)$: $x$ 输给 $y$
+    \end{enumerate}
+    和常值符号
+    \begin{enumerate}
+        \item $c$: 野猫
+        \item $j$: 掠夺者
+    \end{enumerate}
+    把下列句子翻译成谓词逻辑语句:
+    \begin{enumerate}
+        \item 每个球队都有一名四分卫。
+        \item 若掠夺者队击败野猫队，则掠夺者队没有输给每支足球队。
+        \item 野猫队击败了一支击败过掠夺者队的球队。
+    \end{enumerate}
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    \begin{enumerate}
+        \item $\forall t~(F(t) \rightarrow \exists m~Q(m, t))$
+        \item $B(j,c) \rightarrow \forall t~(F(t) \rightarrow \neg L(j,t))$
+        \item $\exists t~(F(t) \wedge B(t, j) \wedge B(c, t))$
+    \end{enumerate}
+
+\end{solution}
+
+\begin{exercise}
+
+    证明下面的谓词逻辑公式是有效的：$\exists y (( \forall x P(x)) \rightarrow P(y))$.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    使用推理规则来推导：
+
+    \begin{enumerate}
+        \item 假设 $\forall x P(x)$ 为真.
+        \item 根据 1，有 $P(y)$ 为真，其中 $y$ 是存在的.
+        \item 由于第一步的假设是任意的，因此可以推断 $\forall x P(x) \rightarrow P(y)$ 为真.
+        \item 由于存在一个 $y$ 使得 $\forall x P(x) \rightarrow P(y)$ 为真，因此 $\exists y (\forall x P(x) \rightarrow P(y))$ 为真.
+    \end{enumerate}
+
+    因此，我们证明了 $\exists y (( \forall x P(x)) \rightarrow P(y))$ 是有效的。简而言之，这个公式表明“如果对于所有 $x$，$P(x)$ 都为真，那么存在一个 $y$ 使得 $P(y)$ 也为真”。这是一个显然的真实际情况，因为只需选择任意一个 $y$，使得 $P(y)$ 为真即可。
+
+\end{solution}
+
+\begin{exercise}
+
+    Prove the walidity of $\forall x P(x) \rightarrow S \vdash \exists x(P(x) \rightarrow S)$.
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+    为了证明 $\forall x P(x) \rightarrow S \vdash \exists x(P(x) \rightarrow S)$ 的有效性，我们可以采用反证法。
+
+    假设 $\forall x P(x) \rightarrow S$ 是真的，但 $\exists x(P(x) \rightarrow S)$ 是假的。这意味着不存在 $x$ 使得 $P(x) \rightarrow S$ 成立。
+
+    使用 $\exists x(P(x) \rightarrow S)$ 的否定，我们可以写成：
+
+    $\forall x \neg (P(x) \rightarrow S)$
+
+    使用条件语句的逆否命题，我们可以将 $\neg (P(x) \rightarrow S)$ 重写为 $P(x) \land \neg S$：
+
+    $\forall x (P(x) \land \neg S)$
+
+    现在，使用全称实例化规则，我们可以用一个特定的常量替换任何 $x$，比如 $a$，得到：
+
+    $P(a) \land \neg S$
+
+    然而，这与我们的假设 $\forall x P(x) \rightarrow S$ 是矛盾的。由于 $\forall x P(x) \rightarrow S$ 是真的，因此对于任何常量 $a$，$P(a) \rightarrow S$ 都是成立的。因此，$\exists x(P(x) \rightarrow S)$ 必须是真的。
+
+    我们已经证明了如果 $\forall x P(x) \rightarrow S$ 是真的，那么 $\exists x(P(x) \rightarrow S)$ 也必须是真的。因此，原命题 $\forall x P(x) \rightarrow S \vdash \exists x(P(x) \rightarrow S)$ 是有效的。
+
+\end{solution}
+
+
+\section{时态逻辑}
+
+本章考点：
+
+\begin{enumerate}
+    \item CTL 公式的语法分析树的构造.
+    \item 给定模型下，LTL 公式路径的选取.
+    \item 给定模型下，CTL 公式有效性的判断.
+\end{enumerate}
+
+\section{模型检测}
+
+本章考点：
+
+\begin{enumerate}
+    \item LTL 公式等价性的证明.
+    \item 合式公式
+    \item 标记算法
+\end{enumerate}
+
+\section{程序验证}
+
+本章考点：
+
+\begin{enumerate}
+    \item 证明公式的部分正确性.
+    \item 含有 if 和 while 的代码的部分正确性证明.
+    \item 证明公式的完全正确性.
+\end{enumerate}
+
+\end{document}

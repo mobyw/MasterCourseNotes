@@ -1,0 +1,135 @@
+\documentclass[cn, hazy, blue, normal, 12pt]{elegantnote}
+
+\title{形式化方法笔记}
+\author{Mobyw}
+\institute{Created by Elegant\LaTeX{}}
+\version{1.0}
+\date{\zhtoday}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{bookmark}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+
+\maketitle
+
+\section{基础}
+
+\subsection{自然语言和命题逻辑语句的转换}
+
+
+
+\subsection{自然语言和谓词逻辑语句的转换}
+
+
+
+\subsection{语法分析树的绘制}
+
+符号优先级：
+
+\begin{enumerate}
+    \item 括号：$()$.
+    \item 一元连接词：$\neg$、$\exists$、$\forall$、（$\mathrm{X}$、$\mathrm{F}$、$\mathrm{G}$）或（$\mathrm{AX}$、$\mathrm{AF}$、$\mathrm{AG}$、$\mathrm{EX}$、$\mathrm{EF}$、$\mathrm{EG}$）.
+    \item 二元连接词：$\wedge$、$\vee$.
+    \item 二元连接词：$\rightarrow$、$\mathrm{U}$或（$\mathrm{AU}$、$\mathrm{EU}$）.
+\end{enumerate}
+
+\section{命题逻辑}
+
+\subsection{矢列的有效性证明}
+
+
+
+\subsection{根据真值表构造 CNF 形式的公式}
+
+要根据真值表构造CNF（合取范式）形式的公式，需要遵循以下步骤：
+
+\begin{enumerate}
+    \item 确定真值表中输出为假的行的集合.
+    \item 对于每个真值表中输出为假的行，将该行的输入变量的取反作为一个析取子句.
+    \item 对所有析取子句进行合取运算，得到 CNF 形式的公式.
+\end{enumerate}
+
+假设有以下真值表：
+
+\begin{center}
+    \begin{tabular}{ccc|c}
+        \hline
+        A & B & C & F \\
+        \hline
+        F & F & F & F \\
+        F & F & T & T \\
+        F & T & F & F \\
+        F & T & T & T \\
+        T & F & F & T \\
+        T & F & T & F \\
+        T & T & F & F \\
+        T & T & T & T \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\begin{enumerate}
+    \item 确定真值表中输出为假的行的集合：$\{ 1, 3, 6, 7 \}$.
+    \item 对于每个真值表中输出为假的行，将该行的输入变量的取反值作为一个析取子句：
+          \begin{enumerate}
+              \item 第1行：$(A \lor B \lor C)$
+              \item 第3行：$(A \lor \neg B \lor C)$
+              \item 第6行：$(\neg A \lor B \lor \neg C)$
+              \item 第7行：$(\neg A \lor \neg B \lor C)$
+          \end{enumerate}
+    \item 对所有析取子句进行合取运算，得到 CNF 形式的公式：\\
+          $(A \lor B \lor C) \land (A \lor \neg B \lor C) \land (\neg A \lor B \lor \neg C) \land (\neg A \lor \neg B \lor C)$
+\end{enumerate}
+
+\section{谓词逻辑}
+
+\subsection{矢列的有效性证明}
+
+
+
+\subsection{模型有效性判断}
+
+
+
+\section{时态逻辑}
+
+\subsection{迁移系统与计算路径}
+
+
+
+\subsection{路径与 LTL/CTL 的满足关系}
+
+
+
+\section{模型检测}
+
+\subsection{标记算法}
+
+
+
+\section{程序验证}
+
+\subsection{霍尔三元组验证}
+
+
+
+\subsection{if 语句验证}
+
+
+
+\subsection{while 语句部分正确性验证}
+
+
+
+\subsection{完全准确性验证}
+
+
+
+\end{document}
