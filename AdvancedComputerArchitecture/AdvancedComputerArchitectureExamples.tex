@@ -1,0 +1,141 @@
+\documentclass[cn, hazy, blue, normal, 12pt]{elegantnote}
+
+\title{高级计算机系统结构例题讲解}
+\author{Mobyw}
+\version{1.0}
+\date{\zhtoday}
+
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{bookmark}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[verbose]{xsim}
+\usepackage[enableskew,vcentermath]{youngtab}
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\usetikzlibrary{patterns}
+\pgfplotsset{compat=1.18}
+
+\tikzset{
+    box/.style ={
+            rectangle,              % 矩形节点
+            rounded corners = 5pt,  % 圆角
+            minimum width   = 50pt, % 最小宽度
+            minimum height  = 20pt, % 最小高度
+            inner sep = 5pt,        % 文字和边框的距离
+            draw=blue               % 边框颜色
+        }
+}
+
+\begin{document}
+
+\maketitle
+
+% \setlength{\lineskip}{1.5em}
+% \setlength{\parskip}{0pt}
+
+\doclicenseThis
+
+本文档为高级计算机系统结构各章节的例题，由于部分答案为个人编撰，难免会出现错误，请保证使用 \href{https://github.com/mobyw/MasterCourseNotes/blob/master/AdvancedComputerSystemArchitecture/AdvancedComputerSystemArchitectureExamples.pdf}{GitHub仓库} 所发布的最新版本. 如遇问题可在 GitHub 上发布 Issue.
+
+
+\section{量化设计与分析基础}
+
+\begin{exercise}
+
+    设一台计算机运行某程序的CPU时间如下表：
+
+    \begin{table}[htbp]
+        \centering
+        \notag
+        \begin{tabular}{ccccc}
+            \hline
+            浮点指令 & 整数指令  & 读/写指令 & 分支指令 & 总时间   \\
+            \hline
+            60 s & 100 s & 40 s  & 40 s & 240 s \\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    试计算：
+
+    （1）如浮点指令执行时间减少50\%，总时间减少百分之多少？总时间减少后的加速比为多少？
+
+    （2）如总时间减少15\%，只减少整数指令时间，整数指令时间减少百分之多少？
+
+    （3）如只减少分支指令时间，总时间能否减少20\%？
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+
+
+\end{solution}
+
+\begin{exercise}
+
+    假如你的公司需要选购 Opteron 或 Itanium2。公司的应用情况是：50\% 的时间运行类似于 mesa 的应用程序，25\% 的时间运行类似于 applu 应用程序，25\% 的时间运行类似于 lucas 的应用程序。 后面的表提供了 Opteron 和 Itanium 的运行测试程序的信息。
+
+    （1）如果仅根据SPEC总体性能进行选择，你选择哪一种微处理器？为什么？
+
+    （2）计算公司混合应用程序的 Itanium/Opteron SPECRatio 加权平均值是多少？按照这个结果应该选择哪一种微处理器？
+
+\end{exercise}
+
+\begin{solution}[print=true]
+
+
+
+\end{solution}
+
+
+\section{指令系统原理与示例}
+
+
+
+\section{单周期 MIPS 处理器的设计}
+
+\begin{exercise}
+
+    MIPS单周期CPU数据通路及控制信号如下图所示。
+
+    （1）试分析下列指令在寄存器 R6 与 R7 内容相等时，下表中针对每条指令的各控制信号的取值。若某控制信号与某指令无关则用 X 表示。
+
+    \lstinline{AND  R1, R2, R3}\par
+    \lstinline{SW   R4, 10(R5)}\par
+    \lstinline{BEQ  R6, R7, OK}
+
+    （2）假设指令存储器延迟是 300 ps，加法器延迟是 80 ps，多路选择器延迟是 20 ps，ALU 延迟是 100 ps，寄存器堆延迟 200 ps，数据存储器延迟 300 ps，忽略符号扩展器的延迟。试计算以下指令的关键路径延迟是多少？
+
+    \lstinline{LW   R2, 20(R1)}
+
+\end{exercise}
+
+
+
+
+\begin{solution}[print=true]
+
+
+
+\end{solution}
+
+
+
+\section{流水线技术及指令级并行}
+
+
+
+\section{存储系统}
+
+
+
+\end{document}
